@@ -45,38 +45,36 @@
             box-shadow: 0 0 10px #00ff00;
         }
 
-        /* [화면 0] 비밀번호 입력 화면 스타일 */
-        #password-screen {
-            display: flex;
+        /* 공통 화면 컨테이너 (처음엔 기본 숨김) */
+        .screen {
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100%;
             height: 100%;
-            color: #00ff00;
             padding: 20px;
             box-sizing: border-box;
+            text-align: center;
         }
 
+        /* [화면 0] 비밀번호 입력 화면 */
+        #password-screen {
+            display: flex; /* 첫 화면만 켬 */
+            color: #00ff00;
+        }
         #password-screen h2 {
             font-size: 1.5rem;
             margin-bottom: 20px;
             text-shadow: 0 0 5px #00ff00;
         }
 
-        /* [화면 1] 다운로드 화면 스타일 (처음엔 숨김) */
+        /* [화면 1] 다운로드 화면 */
         #download-screen {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
             border: 15px solid #00ff00;
-            box-sizing: border-box;
             box-shadow: 0 0 20px #00ff00;
         }
 
-        /* 초록색 다운로드 버튼 */
         #download-button {
             padding: 20px 40px;
             font-size: 1.2rem;
@@ -85,75 +83,77 @@
             border: 3px solid #00ff00;
             border-radius: 10px;
             cursor: pointer;
-            text-align: center;
-            text-decoration: none;
             text-shadow: 0 0 10px #00ff00;
             box-shadow: 0 0 15px #00ff00;
             animation: pulse 1.5s infinite;
         }
 
-        /* [화면 2] 랜섬웨어 경고 화면 스타일 (처음엔 숨김) */
+        /* [화면 2] 랜섬웨어 경고 화면 (입력창 없음, 대기 화면) */
         #warning-screen {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
             color: white;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
             background: radial-gradient(circle, #330000 0%, #000000 100%);
         }
-
         #warning-text {
             font-size: 2.3rem;
             color: #ff0000;
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             text-shadow: 2px 2px #550000;
             animation: glitch 0.3s infinite;
         }
 
-        #status-text {
+        /* [화면 2-1, 2-2] 스태프 인증 화면 스타일 */
+        .staff-screen {
+            color: #ffff00;
+            border: 8px dashed #ffff00;
+        }
+        .staff-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px #ffff00;
+        }
+        .staff-desc {
             font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: #ddd;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .staff-input {
+            border-color: #ffff00 !important;
+            color: #ffff00 !important;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.3) !important;
+        }
+        .staff-btn {
+            background-color: #ffff00 !important;
+            color: black !important;
+            box-shadow: 0 0 10px #ffff00 !important;
         }
 
-        /* 감염 화면 전용 붉은 입력창/버튼 */
-        #warning-screen .custom-input {
-            border-color: #ff0000;
-            color: #ff0000;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-        }
-        #warning-screen .custom-btn {
-            background-color: #ff0000;
-            color: white;
-            box-shadow: 0 0 10px #ff0000;
-        }
-
-        /* [화면 3] 엔딩 화면 스타일 (성공 / 실패 공통) */
-        #ending-screen {
+        /* 스태프 입력 완료 메시지 스타일 */
+        .staff-complete-msg {
             display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
+            color: #ffff00;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #ffff00;
         }
 
+        /* 버튼 밑에 뜨는 스태프 안내 문구 */
+        .staff-footer-note {
+            margin-top: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* [화면 3] 엔딩 화면 */
         #ending-title {
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 20px;
         }
-
         #ending-desc {
             font-size: 1.3rem;
             line-height: 1.6;
@@ -165,7 +165,6 @@
             50% { box-shadow: 0 0 25px #00ff00, 0 0 10px #00ff00 inset; }
             100% { box-shadow: 0 0 15px #00ff00; }
         }
-
         @keyframes glitch {
             0% { transform: translate(0); }
             20% { transform: translate(-2px, 2px); }
@@ -179,109 +178,179 @@
 <body>
 
     <!-- [화면 0] 입장 비밀번호 입력 화면 -->
-    <div id="password-screen">
+    <div id="password-screen" class="screen">
         <h2>ENTER ACCESS CODE</h2>
         <input type="text" id="password-input" class="custom-input" placeholder="코드를 입력하세요" autocomplete="off">
         <button id="password-submit" class="custom-btn">접속</button>
     </div>
 
     <!-- [화면 1] 다운로드 메인 화면 -->
-    <div id="download-screen">
+    <div id="download-screen" class="screen">
         <button id="download-button">방탈출.exe 다운로드하기</button>
     </div>
 
-    <!-- [화면 2] 랜섬웨어 감염 경고 + 4자리 비밀번호 입력 화면 -->
-    <div id="warning-screen">
+    <!-- [화면 2] 랜섬웨어 경고 화면 (입력창 없음, 대기 화면) -->
+    <div id="warning-screen" class="screen">
         <div id="warning-text">시스템 감염 완료!</div>
-        <div id="status-text">데이터가 암호화되었습니다. 복구 코드를 입력하십시오.</div>
+        <div style="margin-bottom: 30px; color: #ddd; font-size: 1.1rem;">데이터가 암호화되었습니다.<br></div>
+        <p style="color: #666; font-size: 0.8rem;">(대기 중...)</p>
+    </div>
+
+    <!-- [수정된 화면 2-1] 1차 스태프 확인 화면 -->
+    <div id="staff-screen-1" class="screen staff-screen">
+        <div class="staff-title">⚠️ WARNING (1/2)</div>
+        <div class="staff-desc">1차 인증 코드를 입력해야 진행됩니다.</div>
         
-        <!-- 4자리 코드 입력란 -->
+        <!-- 입력 영역 (처음엔 보임) -->
+        <div id="staff-input-area-1">
+            <input type="password" id="staff-input-1" class="custom-input staff-input" placeholder="1차 암호" autocomplete="off">
+            <button id="staff-submit-1" class="custom-btn staff-btn">입력 완료</button>
+        </div>
+
+        <!-- 완료 영역 (비번 맞으면 보임) -->
+        <div id="staff-complete-area-1" style="display: none;">
+            <div class="staff-complete-msg">비밀번호 입력 완료.</div>
+            <button class="custom-btn staff-btn" onclick="switchScreen('staff-screen-2')">다음으로 넘어가기</button>
+            <div class="staff-footer-note">이 화면을 스태프에게 보여주세요.</div>
+        </div>
+    </div>
+
+    <!-- [수정된 화면 2-2] 2차 스태프 확인 화면 -->
+    <div id="staff-screen-2" class="screen staff-screen">
+        <div class="staff-title">⚠️ WARNING (2/2)</div>
+        <div class="staff-desc">2차 인증 코드를 입력해야 진행됩니다.</div>
+        
+        <!-- 입력 영역 -->
+        <div id="staff-input-area-2">
+            <input type="password" id="staff-input-2" class="custom-input staff-input" placeholder="2차 암호" autocomplete="off">
+            <button id="staff-submit-2" class="custom-btn staff-btn">입력 완료</button>
+        </div>
+
+        <!-- 완료 영역 -->
+        <div id="staff-complete-area-2" style="display: none;">
+            <div class="staff-complete-msg">비밀번호 입력 완료.</div>
+            <button class="custom-btn staff-btn" onclick="switchScreen('final-code-screen')">다음으로 넘어가기</button>
+            <div class="staff-footer-note">이 화면을 스태프에게 보여주세요.</div>
+        </div>
+    </div>
+
+    <!-- [화면 2-3] 최종 복구 코드 입력 화면 -->
+    <div id="final-code-screen" class="screen staff-screen" style="border-color: #00ff00;">
+        <div class="staff-title" style="color: #00ff00;">시스템 복구 활성화</div>
+        <div class="staff-desc">승인이 완료되었습니다.<br>4자리 시스템 복구 코드를 입력하십시오.</div>
         <input type="password" id="final-code-input" class="custom-input" placeholder="4자리 코드 입력" maxlength="4" autocomplete="off">
         <button id="final-code-submit" class="custom-btn">코드 전송</button>
     </div>
 
-    <!-- [화면 3] 엔딩 출력 화면 (성공 혹은 게임오버) -->
-    <div id="ending-screen">
+    <!-- [화면 3] 엔딩 출력 화면 -->
+    <div id="ending-screen" class="screen">
         <div id="ending-title">결과 타이틀</div>
         <div id="ending-desc">결과 상세 설명</div>
     </div>
 
     <script>
         /* ========================================================
-           ★ [스태프 전용] 여기를 수정하면 비밀번호를 바꿀 수 있습니다!
+           ★ [스태프 전용 비밀번호 관리] 필요시 변경해 쓰세요!
         ======================================================== */
-        const MAIN_PASSWORD = 'TR2026';  // 최초 입장 코드
-        const SUCCESS_CODE  = '9071';    // 성공(탈출) 4자리 코드
-        const TRAP_CODE     = '5136';    // 함정(게임오버) 4자리 코드
+        const MAIN_PASSWORD = 'TR2026';   // 최초 입장 코드
+        const STAFF_PASS_1  = '61835';     // 1차 스태프 비밀번호
+        const STAFF_PASS_2  = '9612';     // 2차 스태프 비밀번호
+        const SUCCESS_CODE  = '9071';     // 플레이어 정답 4자리 코드
+        const TRAP_CODE     = '5136';     // 플레이어 함정 4자리 코드
         /* ======================================================== */
 
-        // 1. 최초 입장 비밀번호 확인
+        // 1. 입장 코드 확인
         document.getElementById('password-submit').addEventListener('click', checkPassword);
-        document.getElementById('password-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') { checkPassword(); }
-        });
+        document.getElementById('password-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkPassword(); });
 
         function checkPassword() {
             const input = document.getElementById('password-input').value;
             if (input.toUpperCase() === MAIN_PASSWORD.toUpperCase()) {
-                document.getElementById('password-screen').style.display = 'none';
-                document.getElementById('download-screen').style.display = 'flex';
+                switchScreen('download-screen');
             } else {
-                alert('잘못된 코드입니다. 다시 시도하세요.');
+                alert('잘못된 코드입니다.');
                 document.getElementById('password-input').value = '';
             }
         }
 
-        // 2. 다운로드 버튼 클릭 시 감염 연출
+        // 2. 다운로드 버튼 감염 연출
         document.getElementById('download-button').addEventListener('click', function() {
-            document.getElementById('download-screen').style.display = 'none';
-            document.getElementById('warning-screen').style.display = 'flex';
+            switchScreen('warning-screen'); 
             document.body.style.backgroundColor = '#1a0000';
-            
-            if (navigator.vibrate) {
-                navigator.vibrate([100, 50, 100, 50, 300]);
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 300]);
+
+            // 1.5초 후 자동으로 1차 스태프 인증 화면으로 전환
+            setTimeout(() => {
+                switchScreen('staff-screen-1');
+            }, 1500);
+        });
+
+        // 3. 1차 스태프 승인 판별
+        document.getElementById('staff-submit-1').addEventListener('click', checkStaff1);
+        document.getElementById('staff-input-1').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkStaff1(); });
+
+        function checkStaff1() {
+            const input = document.getElementById('staff-input-1').value;
+            if (input === STAFF_PASS_1) {
+                // 비번 맞으면 입력창 숨기고 완료 영역 띄우기
+                document.getElementById('staff-input-area-1').style.display = 'none';
+                document.getElementById('staff-complete-area-1').style.display = 'block';
+            } else {
+                alert('스태프 암호가 일치하지 않습니다.');
+                document.getElementById('staff-input-1').value = '';
             }
-        });
+        }
 
-        // 3. 최종 4자리 코드 확인 (갈림길)
-        document.getElementById('final-code-submit').addEventListener('click', checkFinalCode);
-        document.getElementById('final-code-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') { checkFinalCode(); }
-        });
+        // 4. 2차 스태프 승인 판별
+        document.getElementById('staff-submit-2').addEventListener('click', checkStaff2);
+        document.getElementById('staff-input-2').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkStaff2(); });
 
-        function checkFinalCode() {
+        function checkStaff2() {
+            const input = document.getElementById('staff-input-2').value;
+            if (input === STAFF_PASS_2) {
+                // 비번 맞으면 입력창 숨기고 완료 영역 띄우기
+                document.getElementById('staff-input-area-2').style.display = 'none';
+                document.getElementById('staff-complete-area-2').style.display = 'block';
+            } else {
+                alert('스태프 암호가 일치하지 않습니다.');
+                document.getElementById('staff-input-2').value = '';
+            }
+        }
+
+        // 5. 플레이어 4자리 코드 판별 (최종 갈림길)
+        document.getElementById('final-code-submit').addEventListener('click', checkUserCode);
+        document.getElementById('final-code-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') checkUserCode(); });
+
+        function checkUserCode() {
             const input = document.getElementById('final-code-input').value;
             const endingScreen = document.getElementById('ending-screen');
             const endingTitle = document.getElementById('ending-title');
             const endingDesc = document.getElementById('ending-desc');
 
-            if (input === SUCCESS_CODE) {
-                // ⭕ 0000 입력 시: 해제 성공 엔딩
-                document.getElementById('warning-screen').style.display = 'none';
-                endingScreen.style.display = 'flex';
-                document.body.style.backgroundColor = '#001a00'; // 부드러운 초록 배경
+            document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
+            endingScreen.style.display = 'flex';
 
+            if (input === SUCCESS_CODE) {
+                document.body.style.backgroundColor = '#001a00';
                 endingTitle.style.color = '#00ff00';
                 endingTitle.innerText = '🔓 해제되었습니다!';
                 endingDesc.style.color = '#ffffff';
                 endingDesc.innerHTML = '축하합니다! 시스템 제한이 해제되었습니다.<br>방에서 안전하게 탈출하세요!';
-
             } else if (input === TRAP_CODE) {
-                // ❌ 4444 입력 시: 함정 엔딩 (GAME OVER)
-                document.getElementById('warning-screen').style.display = 'none';
-                endingScreen.style.display = 'flex';
-                document.body.style.backgroundColor = '#330000'; // 짙은 빨간 배경
-
+                document.body.style.backgroundColor = '#330000';
                 endingTitle.style.color = '#ff0000';
                 endingTitle.innerText = '💥 GAME OVER';
                 endingDesc.style.color = '#ff8888';
                 endingDesc.innerHTML = '함정에 걸리셨습니다!<br>시스템이 영구히 격리됩니다.';
-
             } else {
-                // 그 외 엉뚱한 번호 입력 시
-                alert('올바르지 않은 코드입니다. 시스템이 반응하지 않습니다.');
-                document.getElementById('final-code-input').value = '';
+                endingDesc.innerHTML = '잘못된 복구 코드를 입력하여 데이터가 영구 소실되었습니다.<br>방에서 나갈 수 없습니다.';
             }
+        }
+
+        // 화면 전환 유틸리티 함수
+        function switchScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
+            document.getElementById(screenId).style.display = 'flex';
         }
     </script>
 </body>
